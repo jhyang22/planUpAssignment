@@ -1,4 +1,4 @@
-package com.study.planupassignment.dto;
+package com.study.planupassignment.dto.response;
 
 import lombok.Getter;
 

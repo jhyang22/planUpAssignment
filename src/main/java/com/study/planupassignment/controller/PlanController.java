@@ -1,8 +1,8 @@
 package com.study.planupassignment.controller;
 
-import com.study.planupassignment.dto.PlanCreateRequestDto;
-import com.study.planupassignment.dto.PlanCreateRespondDto;
-import com.study.planupassignment.dto.PlanResponseDto;
+import com.study.planupassignment.dto.request.PlanCreateRequestDto;
+import com.study.planupassignment.dto.response.PlanCreateRespondDto;
+import com.study.planupassignment.dto.response.PlanResponseDto;
 import com.study.planupassignment.service.PlanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,4 +32,15 @@ public class PlanController {
 
         return new ResponseEntity<>(allPlans, HttpStatus.OK);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PlanResponseDto> findPlanById(@PathVariable Long id) {
+
+        PlanResponseDto findPlanById = planService.findPlanById(id);
+
+        return new ResponseEntity<>(findPlanById, HttpStatus.OK);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<P>
 }

@@ -1,15 +1,18 @@
 package com.study.planupassignment.service;
 
-import com.study.planupassignment.dto.PlanCreateRequestDto;
-import com.study.planupassignment.dto.PlanCreateRespondDto;
-import com.study.planupassignment.dto.PlanResponseDto;
+import com.study.planupassignment.dto.request.PlanCreateRequestDto;
+import com.study.planupassignment.dto.response.PlanCreateRespondDto;
+import com.study.planupassignment.dto.response.PlanResponseDto;
 import com.study.planupassignment.entitiy.Plan;
 import com.study.planupassignment.repository.PlanRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,5 +35,16 @@ public class PlanService {
         List<Plan> allPlans = planRepository.findAll();
 
         return allPlans.stream().map(PlanResponseDto::toDto).toList();
+    }
+
+    public PlanResponseDto findPlanById(Long id) {
+
+        Optional<Plan> findPlanById = planRepository.findById(id);
+
+        if(findPlanById.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        return new PlanResponseDto(findPlanById.get().getId(), findPlanById.get().getUserName(), findPlanById.get().getTitle(), findPlanById.get().getContents(), findPlanById.get().getUpdatedAt());
     }
 }
