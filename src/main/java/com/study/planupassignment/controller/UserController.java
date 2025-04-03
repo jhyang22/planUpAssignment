@@ -8,6 +8,7 @@ import com.study.planupassignment.dto.response.UserResponseDto;
 import com.study.planupassignment.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserResponseDto> createUser(@RequestBody UserCreateRequestDto dto) {
+    public ResponseEntity<UserResponseDto> createUser(@Valid @RequestBody UserCreateRequestDto dto) {
 
         UserResponseDto saveUser = userService.createUser(dto);
 
@@ -62,7 +63,7 @@ public class UserController {
     @PatchMapping("/{id}")
     public ResponseEntity<UserResponseDto> updateUser(
             @PathVariable Long id,
-            @RequestBody UserUpdateRequestDto dto
+            @Valid @RequestBody UserUpdateRequestDto dto
             ) {
 
         UserResponseDto updateUser = userService.updateUser(id, dto);

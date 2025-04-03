@@ -16,10 +16,10 @@ public class Plan extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 10)
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String contents;
 
     public Plan() {

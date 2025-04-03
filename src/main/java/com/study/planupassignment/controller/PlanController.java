@@ -5,6 +5,7 @@ import com.study.planupassignment.dto.request.PlanRequestDto;
 import com.study.planupassignment.dto.response.PlanCreateRespondDto;
 import com.study.planupassignment.dto.response.PlanResponseDto;
 import com.study.planupassignment.service.PlanService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class PlanController {
     private final PlanService planService;
 
     @PostMapping
-    public ResponseEntity<PlanCreateRespondDto> createPlan(@RequestBody PlanCreateRequestDto dto) {
+    public ResponseEntity<PlanCreateRespondDto> createPlan(@Valid @RequestBody PlanCreateRequestDto dto) {
 
         PlanCreateRespondDto createdPlan = planService.createPlan(dto);
 
@@ -45,7 +46,7 @@ public class PlanController {
     @PatchMapping("/{id}")
     public ResponseEntity<PlanResponseDto> updatePlan(
             @PathVariable Long id,
-            @RequestBody PlanRequestDto dto
+            @Valid @RequestBody PlanRequestDto dto
             ) {
 
         PlanResponseDto updatedPlan = planService.updatePlan(id, dto);

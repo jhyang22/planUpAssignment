@@ -8,6 +8,7 @@ import com.study.planupassignment.entitiy.User;
 import com.study.planupassignment.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class UserServiceImpl implements UserService{
         return new UserResponseDto(saveUser);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<UserResponseDto> findAllUser() {
 
@@ -36,6 +38,7 @@ public class UserServiceImpl implements UserService{
 
     }
 
+    @Transactional(readOnly = true)
     @Override
     public UserResponseDto findUserById(Long id) {
 
@@ -44,6 +47,7 @@ public class UserServiceImpl implements UserService{
         return new UserResponseDto(findUserById);
     }
 
+    @Transactional
     @Override
     public UserResponseDto updateUser(Long id, UserUpdateRequestDto dto) {
 

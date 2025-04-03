@@ -13,6 +13,7 @@ public interface UserService {
 
     UserResponseDto createUser(UserCreateRequestDto dto);
 
+
     List<UserResponseDto> findAllUser();
 
     UserResponseDto findUserById(Long id);

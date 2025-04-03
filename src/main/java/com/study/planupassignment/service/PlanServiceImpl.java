@@ -21,6 +21,7 @@ public class PlanServiceImpl implements PlanService {
     private final PlanRepository planRepository;
     private final UserRepository userRepository;
 
+    @Override
     public PlanCreateRespondDto createPlan(PlanCreateRequestDto dto) {
 
         User findByUserNameOrElseThrow = userRepository.findByUserNameOrElseThrow(dto.getUserName());
@@ -33,7 +34,8 @@ public class PlanServiceImpl implements PlanService {
         return PlanCreateRespondDto.toDto(savedPlan);
     }
 
-
+    @Transactional(readOnly = true)
+    @Override
     public List<PlanResponseDto> findAllPlans() {
 
         List<Plan> allPlans = planRepository.findAll();
@@ -41,6 +43,8 @@ public class PlanServiceImpl implements PlanService {
         return allPlans.stream().map(PlanResponseDto::toDto).toList();
     }
 
+    @Transactional(readOnly = true)
+    @Override
     public PlanResponseDto findPlanById(Long id) {
 
         Plan findPlan = planRepository.findPlanByIdOrElseThrow(id);
@@ -49,6 +53,7 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Transactional
+    @Override
     public PlanResponseDto updatePlan(Long id, PlanRequestDto dto) {
 
         Plan findPlan = planRepository.findPlanByIdOrElseThrow(id);
