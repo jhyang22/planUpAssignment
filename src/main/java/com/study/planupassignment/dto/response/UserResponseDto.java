@@ -1,5 +1,6 @@
 package com.study.planupassignment.dto.response;
 
+import com.study.planupassignment.entitiy.User;
 import lombok.Getter;
 
 @Getter
@@ -15,5 +16,9 @@ public class UserResponseDto {
         this.id = id;
         this.userName = userName;
         this.email = email;
+    }
+
+    public static UserResponseDto toDto(User user) {
+        return new UserResponseDto(user.getId(), user.getUserName(), user.getEmail());
     }
 }
