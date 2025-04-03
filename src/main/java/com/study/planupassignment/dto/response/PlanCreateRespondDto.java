@@ -1,5 +1,6 @@
 package com.study.planupassignment.dto.response;
 
+import com.study.planupassignment.entitiy.Plan;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -15,10 +16,14 @@ public class PlanCreateRespondDto {
 
     private final LocalDateTime createdAt;
 
-    public PlanCreateRespondDto(Long id, String title, String contents, LocalDateTime createdAt) {
-        this.id = id;
-        this.title = title;
-        this.contents = contents;
-        this.createdAt = createdAt;
+    public PlanCreateRespondDto(Plan plan) {
+        this.id = plan.getId();
+        this.title = plan.getTitle();
+        this.contents = plan.getContents();
+        this.createdAt = plan.getCreatedAt();
+    }
+
+    public static PlanCreateRespondDto toDto(Plan plan) {
+        return new PlanCreateRespondDto(plan);
     }
 }

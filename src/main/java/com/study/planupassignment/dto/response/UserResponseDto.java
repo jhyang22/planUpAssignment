@@ -12,13 +12,13 @@ public class UserResponseDto {
 
     private final String email;
 
-    public UserResponseDto(Long id, String userName, String email) {
-        this.id = id;
-        this.userName = userName;
-        this.email = email;
+    public UserResponseDto(User user) {
+        this.id = user.getId();
+        this.userName = user.getUserName();
+        this.email = user.getEmail();
     }
 
     public static UserResponseDto toDto(User user) {
-        return new UserResponseDto(user.getId(), user.getUserName(), user.getEmail());
+        return new UserResponseDto(user);
     }
 }

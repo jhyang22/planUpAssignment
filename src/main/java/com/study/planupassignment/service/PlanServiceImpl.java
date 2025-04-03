@@ -10,12 +10,13 @@ import com.study.planupassignment.repository.PlanRepository;
 import com.study.planupassignment.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class PlanServiceImpl implements PlanService{
+public class PlanServiceImpl implements PlanService {
 
     private final PlanRepository planRepository;
     private final UserRepository userRepository;
@@ -29,7 +30,7 @@ public class PlanServiceImpl implements PlanService{
 
         Plan savedPlan = planRepository.save(plan);
 
-        return new PlanCreateRespondDto(savedPlan.getId(), savedPlan.getTitle(), savedPlan.getContents(), savedPlan.getCreatedAt());
+        return PlanCreateRespondDto.toDto(savedPlan);
     }
 
 
@@ -42,24 +43,21 @@ public class PlanServiceImpl implements PlanService{
 
     public PlanResponseDto findPlanById(Long id) {
 
-        User findUser = userRepository.findUserByIdOrElseThrow(id);
+        Plan findPlan = planRepository.findPlanByIdOrElseThrow(id);
 
-        Plan planByIdOrElseThrow = planRepository.findPlanByIdOrElseThrow(id);
-
-        return new PlanResponseDto(planByIdOrElseThrow.getId(), findUser.getUserName(), planByIdOrElseThrow.getTitle(), planByIdOrElseThrow.getContents(), planByIdOrElseThrow.getUpdatedAt());
+        return PlanResponseDto.toDto(findPlan);
     }
 
+    @Transactional
     public PlanResponseDto updatePlan(Long id, PlanRequestDto dto) {
 
-        Plan planByIdOrElseThrow = planRepository.findPlanByIdOrElseThrow(id);
+        Plan findPlan = planRepository.findPlanByIdOrElseThrow(id);
 
-        planByIdOrElseThrow.updatePlan(dto.getTitle(), dto.getContents());
+        findPlan.updatePlan(dto.getTitle(), dto.getContents());
 
-        Plan updatedPlan = planRepository.save(planByIdOrElseThrow);
+        Plan updatedPlan = planRepository.save(findPlan);
 
-        User findUser = userRepository.findUserByIdOrElseThrow(id);
-
-        return new PlanResponseDto(updatedPlan.getId(), findUser.getUserName(), updatedPlan.getTitle(), updatedPlan.getContents(), updatedPlan.getUpdatedAt());
+        return PlanResponseDto.toDto(updatedPlan);
     }
 
     public void deletePlan(Long id) {

@@ -18,16 +18,15 @@ public class PlanResponseDto {
 
     private final LocalDateTime updatedAt;
 
-    public PlanResponseDto(Long id, String userName, String title, String contents, LocalDateTime updatedAt) {
-        this.id = id;
-        this.userName = userName;
-        this.title = title;
-        this.contents = contents;
-        this.updatedAt = updatedAt;
+    public PlanResponseDto(Plan plan) {
+        this.id = plan.getId();
+        this.userName = plan.getUser().getUserName();
+        this.title = plan.getTitle();
+        this.contents = plan.getContents();
+        this.updatedAt = plan.getUpdatedAt();
     }
 
     public static PlanResponseDto toDto(Plan plan) {
-
-        return  new PlanResponseDto(plan.getId(), plan.getUser().getUserName(), plan.getTitle(), plan.getContents(), plan.getUpdatedAt());
+        return  new PlanResponseDto(plan);
     }
 }

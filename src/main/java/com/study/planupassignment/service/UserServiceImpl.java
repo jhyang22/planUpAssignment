@@ -19,11 +19,11 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserResponseDto createUser(UserCreateRequestDto dto) {
 
-        User createUser = new User(dto.getUserName(), dto.getEmail());
+        User createUser = new User(dto.getUserName(),dto.getPassword(), dto.getEmail());
 
         User saveUser = userRepository.save(createUser);
 
-        return new UserResponseDto(saveUser.getId(), saveUser.getUserName(), saveUser.getEmail());
+        return new UserResponseDto(saveUser);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService{
 
         User findUserById = userRepository.findUserByIdOrElseThrow(id);
 
-        return new UserResponseDto(findUserById.getId(), findUserById.getUserName(), findUserById.getEmail());
+        return new UserResponseDto(findUserById);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService{
         findUser.updateUser(dto.getEmail());
         User saveUser = userRepository.save(findUser);
 
-        return new UserResponseDto(saveUser.getId(), saveUser.getUserName(), saveUser.getEmail());
+        return new UserResponseDto(saveUser);
     }
 
     @Override
