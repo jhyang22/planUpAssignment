@@ -12,8 +12,9 @@ public class Plan extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String userName;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(nullable = false)
     private String title;
@@ -25,15 +26,17 @@ public class Plan extends BaseEntity {
 
     }
 
-    public Plan(String userName, String title, String contents) {
-        this.userName = userName;
+    public Plan(String title, String contents) {
         this.title = title;
         this.contents = contents;
     }
 
-    public void updatePlan(String userName, String title, String contents) {
-        this.userName = userName;
+    public void updatePlan(String title, String contents) {
         this.title = title;
         this.contents = contents;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

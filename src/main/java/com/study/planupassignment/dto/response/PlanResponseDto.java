@@ -27,6 +27,7 @@ public class PlanResponseDto {
     }
 
     public static PlanResponseDto toDto(Plan plan) {
-        return  new PlanResponseDto(plan.getId(), plan.getUserName(), plan.getTitle(), plan.getContents(), plan.getUpdatedAt());
+
+        return  new PlanResponseDto(plan.getId(), plan.getUser().getUserName(), plan.getTitle(), plan.getContents(), plan.getUpdatedAt());
     }
 }
