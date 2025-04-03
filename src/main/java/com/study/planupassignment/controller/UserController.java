@@ -1,10 +1,13 @@
 package com.study.planupassignment.controller;
 
 
+import com.study.planupassignment.dto.request.LoginRequestDto;
 import com.study.planupassignment.dto.request.UserCreateRequestDto;
 import com.study.planupassignment.dto.request.UserUpdateRequestDto;
 import com.study.planupassignment.dto.response.UserResponseDto;
 import com.study.planupassignment.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +22,18 @@ public class UserController {
 
     private final UserService userService;
 
+    @PostMapping("/login")
+    public ResponseEntity<String> login(
+            @RequestBody LoginRequestDto dto,
+            HttpServletRequest request
+    ) {
+        if(userService.login(dto)) {
+            HttpSession session = request.getSession();
+            session.setAttribute("secretKey", dto.getEmail());
+        return new ResponseEntity<>("로그인에 성공하였습니다", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("로그인에 실패하였습니다", HttpStatus.UNAUTHORIZED);
+    }
 
     @PostMapping
     public ResponseEntity<UserResponseDto> createUser(@RequestBody UserCreateRequestDto dto) {

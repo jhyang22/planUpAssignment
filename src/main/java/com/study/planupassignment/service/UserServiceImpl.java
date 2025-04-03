@@ -1,5 +1,6 @@
 package com.study.planupassignment.service;
 
+import com.study.planupassignment.dto.request.LoginRequestDto;
 import com.study.planupassignment.dto.request.UserCreateRequestDto;
 import com.study.planupassignment.dto.request.UserUpdateRequestDto;
 import com.study.planupassignment.dto.response.UserResponseDto;
@@ -61,5 +62,17 @@ public class UserServiceImpl implements UserService{
 
         userRepository.delete(findUser);
     }
+
+    @Override
+    public boolean login(LoginRequestDto dto) {
+
+        User findUser = userRepository.findUserByEmailOrElseThrow(dto);
+
+        if(findUser.getPassword().equals(dto.getPassword())) {
+            return true;
+        }
+        return false;
+    }
+
 
 }
