@@ -1,6 +1,7 @@
 package com.study.planupassignment.controller;
 
 import com.study.planupassignment.dto.request.PlanCreateRequestDto;
+import com.study.planupassignment.dto.request.PlanRequestDto;
 import com.study.planupassignment.dto.response.PlanCreateRespondDto;
 import com.study.planupassignment.dto.response.PlanResponseDto;
 import com.study.planupassignment.service.PlanService;
@@ -42,5 +43,13 @@ public class PlanController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<P>
+    public ResponseEntity<PlanResponseDto> updatePlan(
+            @PathVariable Long id,
+            @RequestBody PlanRequestDto dto
+            ) {
+
+        PlanResponseDto updatedPlan = planService.updatePlan(id, dto);
+
+        return new ResponseEntity<>(updatedPlan, HttpStatus.OK);
+    }
 }

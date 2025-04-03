@@ -1,6 +1,7 @@
 package com.study.planupassignment.service;
 
 import com.study.planupassignment.dto.request.PlanCreateRequestDto;
+import com.study.planupassignment.dto.request.PlanRequestDto;
 import com.study.planupassignment.dto.response.PlanCreateRespondDto;
 import com.study.planupassignment.dto.response.PlanResponseDto;
 import com.study.planupassignment.entitiy.Plan;
@@ -46,5 +47,16 @@ public class PlanService {
         }
 
         return new PlanResponseDto(findPlanById.get().getId(), findPlanById.get().getUserName(), findPlanById.get().getTitle(), findPlanById.get().getContents(), findPlanById.get().getUpdatedAt());
+    }
+
+    public PlanResponseDto updatePlan(Long id, PlanRequestDto dto) {
+
+        Plan planByIdOrElseThrow = planRepository.findPlanByIdOrElseThrow(id);
+
+        planByIdOrElseThrow.updatePlan(dto.getUserName(), dto.getTitle(), dto.getContents());
+
+        Plan updatedPlan = planRepository.save(planByIdOrElseThrow);
+
+        return new PlanResponseDto(updatedPlan.getId(), updatedPlan.getUserName(), updatedPlan.getTitle(), updatedPlan.getContents(), updatedPlan.getUpdatedAt());
     }
 }
