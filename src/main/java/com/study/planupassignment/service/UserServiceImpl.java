@@ -18,6 +18,7 @@ public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
 
+    // 유저 생성 로직
     @Override
     public UserResponseDto createUser(UserCreateRequestDto dto) {
 
@@ -28,6 +29,7 @@ public class UserServiceImpl implements UserService{
         return new UserResponseDto(saveUser);
     }
 
+    // 전체 유저 조회 로직
     @Transactional(readOnly = true)
     @Override
     public List<UserResponseDto> findAllUser() {
@@ -38,6 +40,7 @@ public class UserServiceImpl implements UserService{
 
     }
 
+    // 특정 유저 조회 로직
     @Transactional(readOnly = true)
     @Override
     public UserResponseDto findUserById(Long id) {
@@ -47,6 +50,7 @@ public class UserServiceImpl implements UserService{
         return new UserResponseDto(findUserById);
     }
 
+    // 유저 수정 로직
     @Transactional
     @Override
     public UserResponseDto updateUser(Long id, UserUpdateRequestDto dto) {
@@ -59,6 +63,7 @@ public class UserServiceImpl implements UserService{
         return new UserResponseDto(saveUser);
     }
 
+    // 유저 삭제 로직
     @Override
     public void deleteUser(Long id) {
 
@@ -67,6 +72,7 @@ public class UserServiceImpl implements UserService{
         userRepository.delete(findUser);
     }
 
+    // 로그인 로직
     @Override
     public void login(LoginRequestDto dto) {
 

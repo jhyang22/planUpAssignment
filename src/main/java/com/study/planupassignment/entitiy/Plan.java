@@ -36,6 +36,7 @@ public class Plan extends BaseEntity {
         this.contents = contents;
     }
 
+    // 일정 생성 시 FK인 User 필드 설정을 위한 기능
     public void setUser(User user) {
         this.user = user;
     }

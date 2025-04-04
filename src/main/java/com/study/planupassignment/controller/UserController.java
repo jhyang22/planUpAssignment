@@ -23,6 +23,7 @@ public class UserController {
 
     private final UserService userService;
 
+    // 로그인
     @PostMapping("/login")
     public ResponseEntity<String> login(
             @RequestBody LoginRequestDto dto,
@@ -36,6 +37,7 @@ public class UserController {
         return new ResponseEntity<>("로그인에 성공하였습니다", HttpStatus.OK);
     }
 
+    // 유저 생성
     @PostMapping
     public ResponseEntity<UserResponseDto> createUser(@Valid @RequestBody UserCreateRequestDto dto) {
 
@@ -44,6 +46,7 @@ public class UserController {
         return new ResponseEntity<>(saveUser, HttpStatus.CREATED);
     }
 
+    // 전체 유저 조회
     @GetMapping
     public ResponseEntity<List<UserResponseDto>> findAllUser() {
 
@@ -52,6 +55,7 @@ public class UserController {
         return new ResponseEntity<>(allUser, HttpStatus.OK);
     }
 
+    // 특정 유저 조회
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDto> findUserById(@PathVariable Long id) {
 
@@ -60,6 +64,7 @@ public class UserController {
         return new ResponseEntity<>(findUserById, HttpStatus.OK);
     }
 
+    // 유저 수정
     @PatchMapping("/{id}")
     public ResponseEntity<UserResponseDto> updateUser(
             @PathVariable Long id,
@@ -71,6 +76,7 @@ public class UserController {
         return new ResponseEntity<>(updateUser, HttpStatus.OK);
     }
 
+    // 유저 삭제
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
 
