@@ -22,5 +22,5 @@ public interface UserService {
 
     void deleteUser(Long id);
 
-    boolean login(LoginRequestDto dto);
+    void login(LoginRequestDto dto);
 }

@@ -2,6 +2,8 @@ package com.study.planupassignment.entitiy;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 @Getter
 @Entity
@@ -34,5 +36,11 @@ public class User extends BaseEntity{
 
     public void updateUser(String email) {
         this.email = email;
+    }
+
+    public void isPassword(String password) {
+        if(!this.getPassword().equals(password)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀번호가 틀렸습니다.");
+        }
     }
 }

@@ -28,12 +28,12 @@ public class UserController {
             @RequestBody LoginRequestDto dto,
             HttpServletRequest request
     ) {
-        if(userService.login(dto)) {
-            HttpSession session = request.getSession();
-            session.setAttribute("secretKey", dto.getEmail());
+        userService.login(dto);
+
+        HttpSession session = request.getSession();
+        session.setAttribute("secretKey", dto.getEmail());
+
         return new ResponseEntity<>("로그인에 성공하였습니다", HttpStatus.OK);
-        }
-        return new ResponseEntity<>("로그인에 실패하였습니다", HttpStatus.UNAUTHORIZED);
     }
 
     @PostMapping
@@ -64,7 +64,7 @@ public class UserController {
     public ResponseEntity<UserResponseDto> updateUser(
             @PathVariable Long id,
             @Valid @RequestBody UserUpdateRequestDto dto
-            ) {
+    ) {
 
         UserResponseDto updateUser = userService.updateUser(id, dto);
 
